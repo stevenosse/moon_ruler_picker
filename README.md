@@ -16,6 +16,8 @@ must use with SizedBox!
         -> ruler graduation border
 ```
 
+## Example
+
 ``` dart
     SizedBox(
       width: 300,
