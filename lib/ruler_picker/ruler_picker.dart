@@ -1,12 +1,7 @@
 
 
-// import 'dart:async';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/services.dart';
-//
-// import 'element/ruler_vertical_line.dart';
-
 part of ruler_picker_lib;
+
 
 
 class RulerPicker extends StatefulWidget {
