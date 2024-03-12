@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_lib/ruler_picker/ruler_picker.dart';
+import 'package:ruler_picker_lib/ruler_picker_lib.dart';
 
 
 void main() {
@@ -52,22 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
             Text('$_data'),
 
-            SizedBox(
+            RulerPicker(
               width: 300,
-              height: 100,
-              child: RulerPicker(
-                  callback: (data) {
-                    setState(() {
-                      _data = data;
-                    });
-                  },
-                  selectedNumber: _data,
-                  height: 50,
-                  borderWidth: 2,
-                  pickedColor: const Color(0XFF0180BE),
-                  color: const Color(0XFF0180BE).withOpacity(0.3)
-              ),
-            )
+              height: 200,
+              resistance: 1,
+              acceleration: 1,
+              callback: (data) {
+                setState(() {
+                  _data = data;
+                });
+              },
+              selectedNumber: _data,
+              borderWidth: 2,
+              pickedBarColor: const Color(0XFF0180BE),
+              barColor: const Color(0XFF0180BE).withOpacity(0.3)
+            ),
 
 
           ],
