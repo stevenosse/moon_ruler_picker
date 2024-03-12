@@ -11,6 +11,9 @@ class RulerPicker extends StatefulWidget {
   int? maxNumber;
   int? minNumber;
 
+  double resistance;
+  double acceleration;
+
   double width;
   double height;
   double borderWidth;
@@ -26,6 +29,8 @@ class RulerPicker extends StatefulWidget {
     required this.borderWidth,
     required this.pickedBarColor,
     required this.barColor,
+    this.resistance = 1,
+    this.acceleration = 1,
     this.maxNumber,
     this.minNumber,
   });
@@ -35,6 +40,9 @@ class RulerPicker extends StatefulWidget {
 }
 
 class _RulerPickerState extends State<RulerPicker> {
+
+  double get resistance => 0.99 / widget.resistance;
+  double get acceleration => 0.0002 * widget.acceleration;
 
   Timer? timer;
   double selectedNumber;
@@ -126,10 +134,10 @@ class _RulerPickerState extends State<RulerPicker> {
 
   void shootDrag(details) {
 
-    double velocity = (details.primaryVelocity ?? 0) * 0.0002;
+    double velocity = (details.primaryVelocity ?? 0) * acceleration;
 
     timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
-      velocity = velocity * 0.99;
+      velocity = velocity * resistance;
       setState(() {
         selectedNumber -= (velocity);
         _limitMaxNumber();
