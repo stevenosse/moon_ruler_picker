@@ -1,38 +1,32 @@
+
+
 ## Description
 this package provide you with good ruler picker!
 
 ![](https://velog.velcdn.com/images/icecrao2/post/ae8d53d6-1bb0-4b3e-8e93-27e797192f9d/image.gif)
 
-## Usage
-must use with SizedBox!
+## Getting started
 
-``` 
-    callback 
-        -> data change call back method
-        -> call back parameter type is double type
-    height 
-        -> widget's height
-    borderWidth
-        -> ruler graduation border
+```
+flutter pub add moon_ruler_picker
 ```
 
-## Example
+## Usage
 
 ``` dart
-    SizedBox(
-      width: 300,
-      height: 100,
-      child: RulerPicker(
-          callback: (data) {
-            setState(() {
-              _data = data;
+    RulerPicker(
+    	width: 300,			// widget's width
+        height: 200,		// widget's height
+        resistance: 1,		// drag resistance
+        acceleration: 1,	// drag acceleration
+        callback: (data) {	// data change callback
+        	setState(() {
+                  _data = data;
             });
-          },
-          selectedNumber: _data,
-          height: 50,
-          borderWidth: 2,
-          pickedColor: const Color(0XFF0180BE),
-          color: const Color(0XFF0180BE).withOpacity(0.3)
-      ),
-    )
+        },
+        selectedNumber: _data,	// first data
+        borderWidth: 2,			// ruler Graduation's width
+        pickedBarColor: const Color(0XFF0180BE),	// picked ruler's color
+        barColor: const Color(0XFF0180BE).withOpacity(0.3)	// default ruler's color
+    ),
 ```
