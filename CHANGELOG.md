@@ -10,3 +10,12 @@
 
 * Edit Docs
 * refactoring
+
+## 1.0.2
+
+* Change Widget GIF File
+* Edit Docs
+
+## 1.0.3
+
+* Edit Docs

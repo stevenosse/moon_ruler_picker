@@ -1,9 +1,11 @@
 
 
 ## Description
-this package provide you with good ruler picker!
+this package provide you with good ruler picker! <br/>
+Experience the Ruler Picker smoothly gliding through a swift swipe motion, coming to a natural halt! <br/>
+Customize the movement of the Ruler Picker by setting acceleration and resistance to achieve your desired behavior. <br/>
 
-![](https://velog.velcdn.com/images/icecrao2/post/ae8d53d6-1bb0-4b3e-8e93-27e797192f9d/image.gif)
+![](https://velog.velcdn.com/images/icecrao2/post/ce3f18dd-724a-45f7-95a9-612ba081761c/image.gif)
 
 ## Getting started
 
