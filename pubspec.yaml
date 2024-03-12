@@ -1,7 +1,9 @@
 name: ruler_picker_lib
-description: "A new Flutter package project."
+description: "ruler picker"
 version: 0.0.1
-homepage:
+homepage: "https://github.com/icecrao2/moon_ruler_picker"
+publisher: "icecrao3@gmail.com"
+repository: "https://github.com/icecrao2/moon_ruler_picker"
 
 environment:
   sdk: '>=3.2.3 <4.0.0'
