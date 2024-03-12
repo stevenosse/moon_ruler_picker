@@ -1,12 +1,10 @@
 
 
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+part of ruler_picker_lib;
 
 
 
-class RulerVerticalLine extends StatelessWidget {
+class _RulerVerticalLine extends StatelessWidget {
 
   late double standardNumber;
   late double myNumber;
@@ -16,7 +14,7 @@ class RulerVerticalLine extends StatelessWidget {
   late Color pickedColor;
   late Color color;
 
-  RulerVerticalLine({required this.standardNumber, required this.myNumber, required this.width, required this.height, required this.color, required this.pickedColor});
+  _RulerVerticalLine({required this.standardNumber, required this.myNumber, required this.width, required this.height, required this.color, required this.pickedColor});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +23,9 @@ class RulerVerticalLine extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
 
         if (myNumber.floor() % 5 == 0) {
-          return RulerAlignedLongVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.6, color: color, pickedColor: pickedColor, );
+          return _RulerAlignedLongVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.6, color: color, pickedColor: pickedColor, );
         } else {
-          return RulerAlignedShortVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.34, color: color, pickedColor: pickedColor,  );
+          return _RulerAlignedShortVerticalLine(standardNumber: standardNumber, myNumber: myNumber, width: width, height: constraints.maxHeight * 0.34, color: color, pickedColor: pickedColor,  );
         }
 
       }
@@ -36,7 +34,7 @@ class RulerVerticalLine extends StatelessWidget {
 }
 
 
-class RulerAlignedLongVerticalLine extends StatelessWidget {
+class _RulerAlignedLongVerticalLine extends StatelessWidget {
 
   final double rulerBetweenWidth = 0.071;
   late double standardNumber;
@@ -51,7 +49,7 @@ class RulerAlignedLongVerticalLine extends StatelessWidget {
   double get _diff => (standardNumber - myNumber).abs();
   bool get _widgetStandard => ( _diff < 0.5 );
 
-  RulerAlignedLongVerticalLine({required this.standardNumber, required double myNumber, required this.height, required this.width, required this.color, required this.pickedColor}){
+  _RulerAlignedLongVerticalLine({required this.standardNumber, required double myNumber, required this.height, required this.width, required this.color, required this.pickedColor}){
     this.myNumber = myNumber.floor();
     alignX = (this.myNumber - standardNumber) * rulerBetweenWidth;
   }
@@ -64,7 +62,7 @@ class RulerAlignedLongVerticalLine extends StatelessWidget {
 
           Align(
               alignment: Alignment(alignX, 0.0),
-              child: _widgetStandard ? RulerPickedLongVerticalLine(height: height, width: width * 1.2, color: pickedColor) : RulerLongVerticalLine(height: height, width: width, color: color)
+              child: _widgetStandard ? _RulerPickedLongVerticalLine(height: height, width: width * 1.2, color: pickedColor) : _RulerLongVerticalLine(height: height, width: width, color: color)
           ),
 
           Align(
@@ -86,7 +84,7 @@ class RulerAlignedLongVerticalLine extends StatelessWidget {
   }
 }
 
-class RulerAlignedShortVerticalLine extends StatelessWidget {
+class _RulerAlignedShortVerticalLine extends StatelessWidget {
 
   final double rulerBetweenWidth = 0.071;
   late double standardNumber;
@@ -105,7 +103,7 @@ class RulerAlignedShortVerticalLine extends StatelessWidget {
       (myNumber % 5 == 1 && standardNumber - myNumber < 0) ? (_diff < 0.5 && _diff >= -0.5 ) : (_diff <= 0.5 && _diff > -0.5 )
   );
 
-  RulerAlignedShortVerticalLine({required this.standardNumber, required double myNumber, required this.width, required this.height, required this.color, required this.pickedColor}){
+  _RulerAlignedShortVerticalLine({required this.standardNumber, required double myNumber, required this.width, required this.height, required this.color, required this.pickedColor}){
     this.myNumber = myNumber.floor();
     alignX = (this.myNumber - standardNumber) * rulerBetweenWidth;
   }
@@ -115,19 +113,19 @@ class RulerAlignedShortVerticalLine extends StatelessWidget {
 
     return Align(
         alignment: Alignment(alignX, 0.0),
-        child: _widgetStandard ? RulerPickedShortVerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : RulerShortVerticalLine(width: width, height: height, color: color,)
+        child: _widgetStandard ? _RulerPickedShortVerticalLine(width: width * 1.2, height: height * 1.46, color: pickedColor,) : _RulerShortVerticalLine(width: width, height: height, color: color,)
     );
   }
 }
 
 
-class RulerShortVerticalLine extends StatelessWidget {
+class _RulerShortVerticalLine extends StatelessWidget {
 
   late double height;
   late double width;
   late Color color;
 
-  RulerShortVerticalLine({required this.height, required this.width, required this.color});
+  _RulerShortVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +138,13 @@ class RulerShortVerticalLine extends StatelessWidget {
   }
 }
 
-class RulerPickedShortVerticalLine extends StatelessWidget {
+class _RulerPickedShortVerticalLine extends StatelessWidget {
 
   late double height;
   late double width;
   late Color color;
 
-  RulerPickedShortVerticalLine({required this.height, required this.width, required this.color});
+  _RulerPickedShortVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -167,13 +165,13 @@ class RulerPickedShortVerticalLine extends StatelessWidget {
 }
 
 
-class RulerLongVerticalLine extends StatelessWidget {
+class _RulerLongVerticalLine extends StatelessWidget {
 
   late double height;
   late double width;
   late Color color;
 
-  RulerLongVerticalLine({required this.height, required this.width, required this.color});
+  _RulerLongVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -186,13 +184,13 @@ class RulerLongVerticalLine extends StatelessWidget {
   }
 }
 
-class RulerPickedLongVerticalLine extends StatelessWidget {
+class _RulerPickedLongVerticalLine extends StatelessWidget {
 
   late double height;
   late double width;
   late Color color;
 
-  RulerPickedLongVerticalLine({required this.height, required this.width, required this.color});
+  _RulerPickedLongVerticalLine({required this.height, required this.width, required this.color});
 
   @override
   Widget build(BuildContext context) {

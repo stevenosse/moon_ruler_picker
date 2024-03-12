@@ -1,11 +1,12 @@
 
 
-import 'dart:async';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+// import 'dart:async';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/services.dart';
+//
+// import 'element/ruler_vertical_line.dart';
 
-import 'element/ruler_vertical_line.dart';
-
+part of ruler_picker_lib;
 
 
 class RulerPicker extends StatefulWidget {
@@ -55,25 +56,25 @@ class _RulerPickerState extends State<RulerPicker> {
 
     for (int index = 0; index < 20; index++) {
       if (maxNumber == null) {
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
       } else if( (selectedNumber + index) >= maxNumber! ) {
         double maxDouble = maxNumber!.toDouble();
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: width, height: height, color: color, pickedColor: pickedColor));
         break;
       } else {
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
       }
     }
 
     for (int index = -1; index > -20; index--) {
       if (minNumber == null) {
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
       } else if( (selectedNumber + index) < minNumber! ) {
         double minDouble = minNumber!.toDouble();
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: width, height: height, color: color, pickedColor: pickedColor));
         break;
       } else {
-        rulerLines.add(RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
+        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: width, height: height, color: color, pickedColor: pickedColor));
       }
     }
 

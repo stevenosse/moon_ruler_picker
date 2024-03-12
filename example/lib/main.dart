@@ -1,7 +1,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_lib/ruler_picker/ruler_picker.dart';
+import 'package:ruler_picker_lib/ruler_picker_lib.dart';
+// import 'package:ruler_picker_lib/ruler_picker/ruler_picker.dart';
 
 
 void main() {
@@ -51,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
 
             Text('$_data'),
+
 
             SizedBox(
               width: 300,
