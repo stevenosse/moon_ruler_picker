@@ -7,15 +7,15 @@ part of ruler_picker_lib;
 class RulerPicker extends StatefulWidget {
 
   double selectedNumber;
-  late Function(double) callback;
+  Function(double) callback;
   int? maxNumber;
   int? minNumber;
 
-  late double width;
-  late double height;
-  late double borderWidth;
-  late Color pickedBarColor;
-  late Color barColor;
+  double width;
+  double height;
+  double borderWidth;
+  Color pickedBarColor;
+  Color barColor;
 
   RulerPicker({
     super.key,
