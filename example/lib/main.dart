@@ -52,10 +52,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
             Text('$_data'),
 
-
             RulerPicker(
               width: 300,
               height: 200,
+              resistance: 1,
+              acceleration: 1,
               callback: (data) {
                 setState(() {
                   _data = data;
