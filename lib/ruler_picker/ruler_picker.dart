@@ -38,7 +38,7 @@ class _RulerPickerState extends State<RulerPicker> {
 
   Timer? timer;
   double selectedNumber;
-  late int prev = 0;
+  int prev;
 
   int? get maxNumber => widget.maxNumber;
   int? get minNumber => widget.minNumber;
