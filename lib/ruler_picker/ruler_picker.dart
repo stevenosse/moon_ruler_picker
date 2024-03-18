@@ -7,7 +7,8 @@ part of ruler_picker_lib;
 class RulerPicker extends StatefulWidget {
 
   double selectedNumber;
-  Function(double) callback;
+  Function(double) callbackDouble;
+  Function(int)? callbackInt;
   int? maxNumber;
   int? minNumber;
 
@@ -22,7 +23,8 @@ class RulerPicker extends StatefulWidget {
 
   RulerPicker({
     super.key,
-    required this.callback,
+    required this.callbackDouble,
+    this.callbackInt,
     required this.selectedNumber,
     required this.width,
     required this.height,
@@ -129,7 +131,8 @@ class _RulerPickerState extends State<RulerPicker> {
 
     _vibratingOnIntegerValue();
 
-    widget.callback(selectedNumber);
+    widget.callbackDouble(selectedNumber);
+    widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
   }
 
   void shootDrag(details) {
@@ -143,7 +146,8 @@ class _RulerPickerState extends State<RulerPicker> {
         _limitMaxNumber();
         _limitMinNumber();
 
-        widget.callback(selectedNumber);
+        widget.callbackDouble(selectedNumber);
+        widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
       });
 
       _vibratingOnIntegerValue();
