@@ -19,3 +19,7 @@
 ## 1.0.3
 
 * Edit Docs
+
+## 1.0.4
+
+* Edit Docs
