@@ -35,12 +35,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  double _data = 0;
+  double _doubleData = 0;
+  int _intData = 0;
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -50,24 +52,56 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
-            Text('$_data'),
+            Form(
+              child: TextFormField(
+                controller: TextEditingController(text: _doubleData.toStringAsFixed(2)),
+                key: UniqueKey(),
+                onChanged: (data) {
+                  _doubleData = double.tryParse(data) ?? 0;
+                  _intData = _doubleData.floor();
+                },
+                onEditingComplete: () {
+                  setState(() {});
+                },
+              ),
+            ),
+
+            Form(
+              child: TextFormField(
+                controller: TextEditingController(text: _intData.toString()),
+                key: UniqueKey(),
+                onChanged: (data) {
+                  _doubleData = double.tryParse(data) ?? 0;
+                  _intData = _doubleData.floor();
+                },
+                onEditingComplete: () {
+                  setState(() {});
+                },
+              ),
+            ),
 
             RulerPicker(
               width: 300,
               height: 200,
               resistance: 1,
               acceleration: 1,
-              callback: (data) {
+              callbackDouble: (data) {
                 setState(() {
-                  _data = data;
+                  _doubleData = data;
                 });
               },
-              selectedNumber: _data,
+              callbackInt: (data) {
+                setState(() {
+                  _intData = data;
+                });
+              },
+              selectedNumber: _doubleData,
               borderWidth: 2,
               pickedBarColor: const Color(0XFF0180BE),
               barColor: const Color(0XFF0180BE).withOpacity(0.3)
             ),
 
+            const Spacer(),
 
           ],
         ),
