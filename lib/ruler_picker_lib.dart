@@ -1,9 +1,9 @@
 
 
-library ruler_picker_lib;
+library moon_ruler_picker;
 
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 part 'ruler_picker/ruler_picker.dart';

@@ -1,27 +1,23 @@
-
-
-part of ruler_picker_lib;
-
-
+part of moon_ruler_picker;
 
 class RulerPicker extends StatefulWidget {
+  final double selectedNumber;
+  final Function(double) callbackDouble;
+  final Function(int)? callbackInt;
+  final int? maxNumber;
+  final int? minNumber;
 
-  double selectedNumber;
-  Function(double) callbackDouble;
-  Function(int)? callbackInt;
-  int? maxNumber;
-  int? minNumber;
+  final double resistance;
+  final double acceleration;
 
-  double resistance;
-  double acceleration;
+  final double width;
+  final double height;
+  final double borderWidth;
+  final Color pickedBarColor;
+  final Color barColor;
+  final TextStyle? titleStyle;
 
-  double width;
-  double height;
-  double borderWidth;
-  Color pickedBarColor;
-  Color barColor;
-
-  RulerPicker({
+  const RulerPicker({
     super.key,
     required this.callbackDouble,
     this.callbackInt,
@@ -35,20 +31,20 @@ class RulerPicker extends StatefulWidget {
     this.acceleration = 1,
     this.maxNumber,
     this.minNumber,
+    this.titleStyle,
   });
 
   @override
-  State<StatefulWidget> createState() => _RulerPickerState(selectedNumber: selectedNumber);
+  State<StatefulWidget> createState() => RulerPickerState();
 }
 
-class _RulerPickerState extends State<RulerPicker> {
-
+class RulerPickerState extends State<RulerPicker> {
   double get resistance => 0.99 / widget.resistance;
   double get acceleration => 0.0002 * widget.acceleration;
 
   Timer? timer;
-  double selectedNumber;
-  int prev;
+  late double selectedNumber;
+  late int prev;
 
   int? get maxNumber => widget.maxNumber;
   int? get minNumber => widget.minNumber;
@@ -57,40 +53,100 @@ class _RulerPickerState extends State<RulerPicker> {
   Color get pickedBarColor => widget.pickedBarColor;
   Color get barColor => widget.barColor;
 
-  _RulerPickerState({required this.selectedNumber})
-    :prev = selectedNumber.floor();
+  @override
+  initState() {
+    selectedNumber = widget.selectedNumber;
+    prev = selectedNumber.floor();
+
+    super.initState();
+  }
 
   @override
   void didUpdateWidget(covariant RulerPicker oldWidget) {
     selectedNumber = widget.selectedNumber;
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> rulerLines = [];
 
     for (int index = 0; index < 20; index++) {
       if (maxNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
-      } else if( (selectedNumber + index) >= maxNumber! ) {
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: selectedNumber + index,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
+      } else if ((selectedNumber + index) >= maxNumber!) {
         double maxDouble = maxNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: maxDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: maxDouble,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
         break;
       } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: selectedNumber + index,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
       }
     }
 
     for (int index = -1; index > -20; index--) {
       if (minNumber == null) {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
-      } else if( (selectedNumber + index) < minNumber! ) {
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: selectedNumber + index,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
+      } else if ((selectedNumber + index) < minNumber!) {
         double minDouble = minNumber!.toDouble();
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: minDouble, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: minDouble,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
         break;
       } else {
-        rulerLines.add(_RulerVerticalLine(standardNumber: selectedNumber, myNumber: selectedNumber + index, width: borderWidth, height: height, color: barColor, pickedColor: pickedBarColor));
+        rulerLines.add(
+          RulerVerticalLine(
+            standardNumber: selectedNumber,
+            myNumber: selectedNumber + index,
+            width: borderWidth,
+            height: height,
+            color: barColor,
+            pickedColor: pickedBarColor,
+          ),
+        );
       }
     }
 
@@ -111,10 +167,7 @@ class _RulerPickerState extends State<RulerPicker> {
         },
         child: SizedBox(
           width: double.infinity,
-          child: Stack(
-              alignment: Alignment.center,
-              children: rulerLines
-          ),
+          child: Stack(alignment: Alignment.center, children: rulerLines),
         ),
       ),
     );
@@ -136,7 +189,6 @@ class _RulerPickerState extends State<RulerPicker> {
   }
 
   void shootDrag(details) {
-
     double velocity = (details.primaryVelocity ?? 0) * acceleration;
 
     timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
@@ -159,7 +211,6 @@ class _RulerPickerState extends State<RulerPicker> {
     });
   }
 
-
   void _moveRulerPicker(double delta) {
     if (delta > 5) {
       selectedNumber -= 5 * 0.2;
@@ -172,17 +223,15 @@ class _RulerPickerState extends State<RulerPicker> {
 
   void _limitMaxNumber() {
     if (maxNumber == null) {
-
-    } else if( (selectedNumber) >= maxNumber! ) {
-      selectedNumber =  maxNumber!.toDouble();
+    } else if ((selectedNumber) >= maxNumber!) {
+      selectedNumber = maxNumber!.toDouble();
     }
   }
 
   void _limitMinNumber() {
     if (minNumber == null) {
-
-    } else if( (selectedNumber) <= minNumber! ) {
-      selectedNumber =  minNumber!.toDouble();
+    } else if ((selectedNumber) <= minNumber!) {
+      selectedNumber = minNumber!.toDouble();
     }
   }
 
@@ -193,4 +242,3 @@ class _RulerPickerState extends State<RulerPicker> {
     }
   }
 }
-

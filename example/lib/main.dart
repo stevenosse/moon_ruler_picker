@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:ruler_picker_lib/ruler_picker_lib.dart';
+import 'package:moon_ruler_picker/ruler_picker_lib.dart';
 
 
 void main() {
