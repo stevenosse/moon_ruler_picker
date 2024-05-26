@@ -29,26 +29,29 @@ class RulerAlignedLongVerticalLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Align(
+    return Stack(
+      children: [
+        Align(
           alignment: Alignment(alignX, 0.0),
           child: _widgetStandard
               ? RulerPickedLongVerticalLine(height: height, width: width * 1.2, color: pickedColor)
-              : RulerLongVerticalLine(height: height, width: width, color: color)),
-      Align(
-        alignment: Alignment(alignX, 1.0),
-        child: Text(
-          myNumber.toStringAsFixed(0),
-          style: textStyle ??
-              TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 12,
-                fontFamily: 'Noto Sans CJK KR',
-                fontWeight: FontWeight.w500,
-                height: 0.17,
-              ),
+              : RulerLongVerticalLine(height: height, width: width, color: color),
         ),
-      ),
-    ]);
+        Align(
+          alignment: Alignment(alignX, 1.0),
+          child: Text(
+            myNumber.toStringAsFixed(0),
+            style: textStyle ??
+                TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 12,
+                  fontFamily: 'Noto Sans CJK KR',
+                  fontWeight: FontWeight.w500,
+                  height: 0.17,
+                ),
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -1,8 +1,5 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:moon_ruler_picker/ruler_picker_lib.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -34,13 +31,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   double _doubleData = 0;
   int _intData = 0;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -51,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             Form(
               child: TextFormField(
                 controller: TextEditingController(text: _doubleData.toStringAsFixed(2)),
@@ -65,7 +59,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
-
             Form(
               child: TextFormField(
                 controller: TextEditingController(text: _intData.toString()),
@@ -79,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
               ),
             ),
-
             RulerPicker(
               width: 300,
               height: 200,
@@ -98,15 +90,12 @@ class _MyHomePageState extends State<MyHomePage> {
               selectedNumber: _doubleData,
               borderWidth: 2,
               pickedBarColor: const Color(0XFF0180BE),
-              barColor: const Color(0XFF0180BE).withOpacity(0.3)
+              barColor: const Color(0XFF0180BE).withOpacity(0.3),
             ),
-
             const Spacer(),
-
           ],
         ),
       ),
-
     );
   }
 }

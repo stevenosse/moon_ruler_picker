@@ -24,27 +24,29 @@ class RulerVerticalLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
-      if (myNumber.floor() % 5 == 0) {
-        return RulerAlignedLongVerticalLine(
-          standardNumber: standardNumber,
-          myNumber: myNumber,
-          width: width,
-          height: constraints.maxHeight * 0.6,
-          color: color,
-          pickedColor: pickedColor,
-          textStyle: textStyle,
-        );
-      } else {
-        return RulerAlignedShortVerticalLine(
-          standardNumber: standardNumber,
-          myNumber: myNumber,
-          width: width,
-          height: constraints.maxHeight * 0.34,
-          color: color,
-          pickedColor: pickedColor,
-        );
-      }
-    });
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        if (myNumber.floor() % 5 == 0) {
+          return RulerAlignedLongVerticalLine(
+            standardNumber: standardNumber,
+            myNumber: myNumber,
+            width: width,
+            height: constraints.maxHeight * 0.6,
+            color: color,
+            pickedColor: pickedColor,
+            textStyle: textStyle,
+          );
+        } else {
+          return RulerAlignedShortVerticalLine(
+            standardNumber: standardNumber,
+            myNumber: myNumber,
+            width: width,
+            height: constraints.maxHeight * 0.34,
+            color: color,
+            pickedColor: pickedColor,
+          );
+        }
+      },
+    );
   }
 }

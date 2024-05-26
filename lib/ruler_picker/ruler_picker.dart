@@ -43,8 +43,8 @@ class RulerPickerState extends State<RulerPicker> {
   double get acceleration => 0.0002 * widget.acceleration;
 
   Timer? timer;
-  late double selectedNumber;
-  late int prev;
+  late double selectedValue;
+  late int _previousSelectedValue;
 
   int? get maxNumber => widget.maxNumber;
   int? get minNumber => widget.minNumber;
@@ -55,15 +55,19 @@ class RulerPickerState extends State<RulerPicker> {
 
   @override
   initState() {
-    selectedNumber = widget.selectedNumber;
-    prev = selectedNumber.floor();
+    selectedValue = widget.selectedNumber;
+    _previousSelectedValue = selectedValue.floor();
 
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant RulerPicker oldWidget) {
-    selectedNumber = widget.selectedNumber;
+    selectedValue = widget.selectedNumber;
+    _previousSelectedValue = selectedValue.floor();
+
+    _limitMaxNumber();
+    _limitMinNumber();
 
     super.didUpdateWidget(oldWidget);
   }
@@ -76,19 +80,19 @@ class RulerPickerState extends State<RulerPicker> {
       if (maxNumber == null) {
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
-            myNumber: selectedNumber + index,
+            standardNumber: selectedValue,
+            myNumber: selectedValue + index,
             width: borderWidth,
             height: height,
             color: barColor,
             pickedColor: pickedBarColor,
           ),
         );
-      } else if ((selectedNumber + index) >= maxNumber!) {
+      } else if ((selectedValue + index) >= maxNumber!) {
         double maxDouble = maxNumber!.toDouble();
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
+            standardNumber: selectedValue,
             myNumber: maxDouble,
             width: borderWidth,
             height: height,
@@ -100,8 +104,8 @@ class RulerPickerState extends State<RulerPicker> {
       } else {
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
-            myNumber: selectedNumber + index,
+            standardNumber: selectedValue,
+            myNumber: selectedValue + index,
             width: borderWidth,
             height: height,
             color: barColor,
@@ -115,19 +119,19 @@ class RulerPickerState extends State<RulerPicker> {
       if (minNumber == null) {
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
-            myNumber: selectedNumber + index,
+            standardNumber: selectedValue,
+            myNumber: selectedValue + index,
             width: borderWidth,
             height: height,
             color: barColor,
             pickedColor: pickedBarColor,
           ),
         );
-      } else if ((selectedNumber + index) < minNumber!) {
+      } else if ((selectedValue + index) < minNumber!) {
         double minDouble = minNumber!.toDouble();
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
+            standardNumber: selectedValue,
             myNumber: minDouble,
             width: borderWidth,
             height: height,
@@ -139,8 +143,8 @@ class RulerPickerState extends State<RulerPicker> {
       } else {
         rulerLines.add(
           RulerVerticalLine(
-            standardNumber: selectedNumber,
-            myNumber: selectedNumber + index,
+            standardNumber: selectedValue,
+            myNumber: selectedValue + index,
             width: borderWidth,
             height: height,
             color: barColor,
@@ -159,15 +163,14 @@ class RulerPickerState extends State<RulerPicker> {
           timer?.cancel();
           timer = null;
         },
-        onHorizontalDragEnd: (details) {
-          shootDrag(details);
-        },
-        onHorizontalDragUpdate: (details) {
-          updateDrag(details);
-        },
+        onHorizontalDragEnd: (details) => shootDrag(details),
+        onHorizontalDragUpdate: (details) => updateDrag(details),
         child: SizedBox(
           width: double.infinity,
-          child: Stack(alignment: Alignment.center, children: rulerLines),
+          child: Stack(
+            alignment: Alignment.center,
+            children: rulerLines,
+          ),
         ),
       ),
     );
@@ -184,8 +187,8 @@ class RulerPickerState extends State<RulerPicker> {
 
     _vibratingOnIntegerValue();
 
-    widget.callbackDouble(selectedNumber);
-    widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
+    widget.callbackDouble(selectedValue);
+    widget.callbackInt == null ? null : widget.callbackInt!(selectedValue.floor());
   }
 
   void shootDrag(details) {
@@ -194,12 +197,12 @@ class RulerPickerState extends State<RulerPicker> {
     timer = Timer.periodic(const Duration(milliseconds: 10), (Timer timer) {
       velocity = velocity * resistance;
       setState(() {
-        selectedNumber -= (velocity);
+        selectedValue -= (velocity);
         _limitMaxNumber();
         _limitMinNumber();
 
-        widget.callbackDouble(selectedNumber);
-        widget.callbackInt == null ? null : widget.callbackInt!(selectedNumber.floor());
+        widget.callbackDouble(selectedValue);
+        widget.callbackInt == null ? null : widget.callbackInt!(selectedValue.floor());
       });
 
       _vibratingOnIntegerValue();
@@ -213,32 +216,32 @@ class RulerPickerState extends State<RulerPicker> {
 
   void _moveRulerPicker(double delta) {
     if (delta > 5) {
-      selectedNumber -= 5 * 0.2;
+      selectedValue -= 5 * 0.2;
     } else if (delta < -5) {
-      selectedNumber -= -5 * 0.2;
+      selectedValue -= -5 * 0.2;
     } else {
-      selectedNumber -= delta * 0.2;
+      selectedValue -= delta * 0.2;
     }
   }
 
   void _limitMaxNumber() {
     if (maxNumber == null) {
-    } else if ((selectedNumber) >= maxNumber!) {
-      selectedNumber = maxNumber!.toDouble();
+    } else if ((selectedValue) >= maxNumber!) {
+      selectedValue = maxNumber!.toDouble();
     }
   }
 
   void _limitMinNumber() {
     if (minNumber == null) {
-    } else if ((selectedNumber) <= minNumber!) {
-      selectedNumber = minNumber!.toDouble();
+    } else if ((selectedValue) <= minNumber!) {
+      selectedValue = minNumber!.toDouble();
     }
   }
 
   void _vibratingOnIntegerValue() {
-    if ((selectedNumber.floor() - prev).abs() >= 0.5) {
+    if ((selectedValue.floor() - _previousSelectedValue).abs() >= 0.5) {
       HapticFeedback.selectionClick();
-      prev = selectedNumber.floor();
+      _previousSelectedValue = selectedValue.floor();
     }
   }
 }
